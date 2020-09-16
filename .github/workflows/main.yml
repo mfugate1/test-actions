@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v1
-        
-      - run: |
-          git fetch --prune --unshallow --tags
 
       - name: Create changelogs
         id: changelogs
