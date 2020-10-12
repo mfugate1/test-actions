@@ -1,29 +1,16 @@
 name: Release
 on:
   push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
-
+    branches:
+      - master
 jobs:
-  release-notary:
-    name: Release
+  bump-version:
+    name: Bump Version on master
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v1
-
-      - name: Create changelogs
-        id: changelogs
-        uses: heineiuo/create-changelogs@master
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+      - name: 'GitHub Version Bumper'
+        uses: 'kaangokdemir/github-version-bumper@master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }} - Test Action Release
-          body: ${{ steps.changelogs.outputs.changelogs }}
-          draft: false
-          prerelease: false
