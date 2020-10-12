@@ -36,6 +36,7 @@ jobs:
       - uses: shallwefootball/s3-upload-action@v1.1.2
         with:
           source_dir: test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip
+          destination_dir: ''
           aws_bucket: ${{ secrets.S3_BUCKET }}
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
