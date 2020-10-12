@@ -24,7 +24,7 @@ jobs:
       - run: npm install --production
       - uses: montudor/action-zip@v0.1.0
         with:
-          args: "zip -qq -r test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip 'dummy1*' 'dummy2*' 'package*' node_modules"
+          args: zip -qq -r test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip node_modules package.json dummy1.txt dummy3.stuff
       - uses: ncipollo/release-action@v1
         with:
           artifact: test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip
