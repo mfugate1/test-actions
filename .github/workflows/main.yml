@@ -40,4 +40,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           sudo apt-get update && sudo apt-get -y install awscli
-          aws s3 test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip s3://${{ secrets.S3_BUCKET }}/
+          aws s3 cp test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip s3://${{ secrets.S3_BUCKET }}/
