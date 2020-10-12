@@ -8,9 +8,30 @@ jobs:
     name: Bump Version on master
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout source code'
-        uses: 'actions/checkout@v2'
-      - name: 'GitHub Version Bumper'
-        uses: 'kaangokdemir/github-version-bumper@master'
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: kaangokdemir/github-version-bumper@0.5.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: scottbrenner/generate-changelog-action@1.0.1
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
+      - uses: martinbeentjes/npm-get-version-action@v1.1.0
+        id: package-version
+      - run: npm install --production
+      - uses: papeloto/action-zip@v1
+        with:
+          files: dummy1* dummy2* package* node_modules
+          recursive: true
+          dest: test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip
+      - uses: ncipollo/release-action@v1
+        with:
+          artifact: test-action-artifact-${{ steps.package-version.outputs.current-version}}.zip
+          tag: ${{ steps.package-version.outputs.current-version}}
+          name: Test Action Release ${{ steps.package-version.outputs.current-version}}
+          body: ${{ steps.Changelog.outputs.changelog }}
+          commit: master
+          token: ${{ secrets.GITHUB_TOKEN }}
