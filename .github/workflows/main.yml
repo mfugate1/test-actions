@@ -17,12 +17,12 @@ jobs:
       - uses: kaangokdemir/github-version-bumper@0.5.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: heinrichreimer/github-changelog-generator-action@v2.1.1
-        id: changelog
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: martinbeentjes/npm-get-version-action@v1.1.0
         id: package-version
+      - uses: Bullrich/generate-release-changelog@2.0.1
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
       - uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.package-version.outputs.current-version}}
