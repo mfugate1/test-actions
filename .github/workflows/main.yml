@@ -15,10 +15,10 @@ jobs:
       - uses: kaangokdemir/github-version-bumper@0.5.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: scottbrenner/generate-changelog-action@1.0.1
+      - uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         id: changelog
-        env:
-          REPO: ${{ github.repository }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: martinbeentjes/npm-get-version-action@v1.1.0
         id: package-version
       - uses: ncipollo/release-action@v1
