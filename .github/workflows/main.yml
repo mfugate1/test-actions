@@ -17,7 +17,6 @@ jobs:
         id: changelog
         env:
           REPO: ${{ github.repository }}
-      - name: Notifying via Slack
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{secrets.SLACK_KEY}}
