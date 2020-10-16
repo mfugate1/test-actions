@@ -20,6 +20,7 @@ jobs:
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{secrets.SLACK_KEY}}
+          secret: secret
           channel: devops-test-channel
           message: |
             *Test Action Release ${{ steps.package-version.outputs.current-version }}*
