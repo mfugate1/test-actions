@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.SLACK_TOKEN }}
           channel: devops-test-channel
           evals: |
-            "changelog = git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' ${{github.event.before}}..${{github.event.after}}"
+            "changelog = git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 \`%h\` %s (%ae)' ${{github.event.before}}..${{github.event.after}}"
           message: |
             *UpGrade Backend ${{ steps.package-version.outputs.current-version }} has been deployed to qa-cli.net*
             {{ evals.changelog }}
