@@ -21,8 +21,6 @@ jobs:
         with:
           token: ${{secrets.SLACK_KEY}}
           channel: devops-test-channel
-          evals: |
-            changelog = git log --reverse --color=never --pretty=\'tformat:%xe2%x80%xa2 `%h` %s (%ae)\' {{context.payload.push.before}}...{{context.payload.push.head}}
           message: |
-            *Test Action Release {{ steps.package-version.outputs.current-version }}*
-            {{evals.changelog}}
+            *Test Action Release ${{ steps.package-version.outputs.current-version }}*
+            ${{ steps.changelog.outputs.changelog }}
