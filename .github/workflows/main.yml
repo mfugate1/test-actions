@@ -20,7 +20,7 @@ jobs:
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{secrets.SLACK_KEY}}
-          channel: ${{secrets.SLACK_CHANNEL}}
+          channel: devops-test-channel
           evals: |
             changelog = git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' {{context.payload.push.before}}...{{context.payload.push.head}}
           message: |
