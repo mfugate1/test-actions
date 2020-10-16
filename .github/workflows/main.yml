@@ -22,7 +22,9 @@ jobs:
         env:
           REPO: ${{ github.repository }}
       - run: |
-          echo ::set-env name=CHANGELOG::$(git log --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%an)' ${{github.event.before}}..HEAD})
+          echo 'CHANGELOG<<EOF' >> $GITHUB_ENV
+          git log --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%an)' ${{github.event.before}}..HEAD
+          echo 'EOF' >> $GITHUB_ENV
       - uses: ncipollo/release-action@v1
         with:
           tag: v${{ steps.package-version.outputs.current-version }}
