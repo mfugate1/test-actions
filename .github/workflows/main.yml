@@ -11,14 +11,28 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: phips28/gh-action-bump-version@v8.0.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: martinbeentjes/npm-get-version-action@v1.1.0
         id: package-version
+      - uses: Bullrich/generate-release-changelog@2.0.1
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
       - run: |
-          echo ::set-env name=CHANGELOG::$(git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' ${{github.event.before}}..${{github.event.after}})
+          echo ::set-env name=CHANGELOG::$(git log --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%an)' ${{github.event.before}}..HEAD})
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: v${{ steps.package-version.outputs.current-version }}
+          name: Test Action ${{ steps.package-version.outputs.current-version}}
+          body: ${{ steps.changelog.outputs.changelog }}
+          commit: master
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{ secrets.SLACK_TOKEN }}
           channel: devops-test-channel
           message: |
-            *UpGrade Backend ${{ steps.package-version.outputs.current-version }} has been deployed to qa-cli.net*
+            *<https://github.com/${{ github.event.repository.full_name }}/releases/tag/v${{ steps.package-version.outputs.current-version }}|Test Action ${{ steps.package-version.outputs.current-version }}> has been deployed to qa-cli.net*
             {{ env.CHANGELOG }}
