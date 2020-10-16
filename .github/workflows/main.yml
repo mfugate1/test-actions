@@ -13,6 +13,7 @@ jobs:
           fetch-depth: 0
       - uses: martinbeentjes/npm-get-version-action@v1.1.0
         id: package-version
+      - run: git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' ${{github.event.before}}..${{github.event.after}}
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{ secrets.SLACK_TOKEN }}
