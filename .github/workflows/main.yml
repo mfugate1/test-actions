@@ -13,17 +13,12 @@ jobs:
           fetch-depth: 0
       - uses: martinbeentjes/npm-get-version-action@v1.1.0
         id: package-version
-      - uses: Bullrich/generate-release-changelog@2.0.1
-        id: changelog
-        env:
-          REPO: ${{ github.repository }}
-      - run: "echo '${{github.event}}'"
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{ secrets.SLACK_TOKEN }}
           channel: devops-test-channel
           evals: |
-            "changelog = git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' ${{github.event.push.before}}..${{github.event.push.after}}"
+            "changelog = git log --reverse --color=never --pretty='tformat:%xe2%x80%xa2 `%h` %s (%ae)' ${{github.event.before}}..${{github.event.after}}"
           message: |
             *UpGrade Backend ${{ steps.package-version.outputs.current-version }} has been deployed to qa-cli.net*
             {{ evals.changelog }}
