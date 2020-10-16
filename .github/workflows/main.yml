@@ -17,6 +17,7 @@ jobs:
         id: changelog
         env:
           REPO: ${{ github.repository }}
+      - run: "echo '${{github.event}}'"
       - uses: aibexhq/slack-rich-notify@v2.0.1
         with:
           token: ${{ secrets.SLACK_TOKEN }}
