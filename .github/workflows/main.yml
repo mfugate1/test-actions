@@ -23,7 +23,7 @@ jobs:
         with:
           bot_token: ${{ secrets.SLACK_TOKEN }}
           channel: devops-test-channel
-          payload: >-
+          payload: |
             {
               "text": "*Test Action Successful Build*\n${{ env.CHANGELOG }}",
               "color": "bad"
