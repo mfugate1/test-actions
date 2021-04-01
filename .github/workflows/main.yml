@@ -15,7 +15,7 @@ jobs:
       - name: Trigger build
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
           repository: ${{ github.repository }}
           event-type: trigger-build
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
