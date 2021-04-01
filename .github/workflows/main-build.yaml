@@ -1,7 +1,7 @@
 name: Create Release
 on:
   repository_dispatch:
-    types: [trigger-build]
+    types: [trigger-main-build]
 jobs:
   create-release:
     name: Create Release
@@ -9,5 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with: 
-          fetch-depth: 0
-      - run: echo building
+          ref: ${{ github.event.client_payload.tag }}
+      - run: echo ${{ github.event.client_payload.tag }}

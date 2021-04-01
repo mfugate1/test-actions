@@ -11,11 +11,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.client_payload.sha }}
+          fetch-depth: 0
+      - uses: phips28/gh-action-bump-version@v8.0.18
+        id: main-version-bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          major-wording: 'main-major-version-bump'
+          minor-wording: 'main-minor-version-bump'
+      - uses: phips28/gh-action-bump-version@v8.0.18
+        id: frontend-version-bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGEJSON_DIR: frontend
+        with:
+          major-wording: 'frontend-major-version-bump'
+          minor-wording: 'frontend-minor-version-bump'
       - name: Trigger build
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_DISPATCH_TOKEN }}
           repository: ${{ github.repository }}
-          event-type: trigger-build
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+          event-type: trigger-main-build
+          client-payload: '{"tag": "${{ steps.main-version-bump.outputs.newTag }}"}'
+      - name: Trigger build
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: ${{ github.repository }}
+          event-type: trigger-frontend-build
+          client-payload: '{"tag": "${{ steps.frontend-version-bump.outputs.newTag }}"}'
