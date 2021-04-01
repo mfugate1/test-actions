@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: phips28/gh-action-bump-version@v8.0.18
+      - uses: phips28/gh-action-bump-version@v8.2.2
         id: main-version-bump
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,7 +20,7 @@ jobs:
           major-wording: 'main-major-version-bump'
           minor-wording: 'main-minor-version-bump'
           commit-message: 'CI: bump version for main project to {{version}}'
-      - uses: phips28/gh-action-bump-version@v8.0.18
+      - uses: phips28/gh-action-bump-version@v8.2.2
         id: frontend-version-bump
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
