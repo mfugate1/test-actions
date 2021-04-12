@@ -3,6 +3,8 @@ node {
     echo 'is this working?'
     echo 'Probably'
 
+    checkout scm
+
     if (currentBuild.changeSets) {
         String changelog = '*Git Changelog:*\n'
         currentBuild.changeSets[0].items.each {
