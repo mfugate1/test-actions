@@ -11,6 +11,7 @@ node ('master || default || background') {
             changelog += "\n- `${it.commitId.take(7)}` ${it.getMsgEscaped()} (${it.getAuthorEmail()})"
         }
         echo changelog
+    }
 
     echo env
 }
