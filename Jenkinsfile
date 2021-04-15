@@ -1,4 +1,4 @@
-node {
+node ('master || default || background') {
     echo 'Test Actions! change'
     echo 'is this working?'
     echo 'Probably'
@@ -11,5 +11,7 @@ node {
             changelog += "\n- `${it.commitId.take(7)}` ${it.getMsgEscaped()} (${it.getAuthorEmail()})"
         }
         echo changelog
+    } else {
+        sh 'git branch -r'
     }
 }
