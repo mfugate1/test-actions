@@ -13,5 +13,5 @@ node ('master || default || background') {
         echo changelog
     }
 
-    echo env.toString()
+    echo sh(script: 'env|sort', returnStdout: true)
 }
