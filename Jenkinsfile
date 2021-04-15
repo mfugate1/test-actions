@@ -11,9 +11,6 @@ node ('master || default || background') {
             changelog += "\n- `${it.commitId.take(7)}` ${it.getMsgEscaped()} (${it.getAuthorEmail()})"
         }
         echo changelog
-    } else {
-        sh 'git branch -r'
-    }
 
-    sh 'git branch -r'
+    echo env
 }
