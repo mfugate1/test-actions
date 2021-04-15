@@ -13,5 +13,5 @@ node ('master || default || background') {
         echo changelog
     }
 
-    echo env
+    echo env.toString()
 }
