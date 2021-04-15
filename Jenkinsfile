@@ -14,4 +14,6 @@ node ('master || default || background') {
     } else {
         sh 'git branch -r'
     }
+
+    sh 'git branch -r'
 }
