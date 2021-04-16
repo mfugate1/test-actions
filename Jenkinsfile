@@ -3,7 +3,7 @@ node ('master || default || background') {
     echo 'is this working?'
     echo 'Probably'
 
-    scmVars = checkout scm
+    Map scmVars = checkout scm
 
     if (currentBuild.changeSets) {
         String changelog = '*Git Changelog:*\n'
