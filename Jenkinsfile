@@ -3,15 +3,23 @@ node ('master || default || background') {
     echo 'is this working?'
     echo 'Probably'
 
-    Map scmVars = checkout scm
-
-    if (currentBuild.changeSets) {
-        String changelog = '*Git Changelog:*\n'
-        currentBuild.changeSets[0].items.each {
-            changelog += "\n- `${it.commitId.take(7)}` ${it.getMsgEscaped()} (${it.getAuthorEmail()})"
-        }
-        echo changelog
+    catchError {
+        echo 'nope'
     }
 
-    echo "${scmVars.toString()}"
+    if (currentBuild.result != 'FAILURE') {
+        echo 'not a failure'
+    } else {
+        echo 'failure'
+    }
+
+    catchError {
+        sh 'blargdebalrk'
+    }
+
+    if (currentBuild.result != 'FAILURE') {
+        echo 'not a failure'
+    } else {
+        echo 'failure'
+    }
 }
