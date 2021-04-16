@@ -13,5 +13,5 @@ node ('master || default || background') {
         echo changelog
     }
 
-    echo sh(script: 'env|sort', returnStdout: true)
+    echo "${GIT_BRANCH}"
 }
