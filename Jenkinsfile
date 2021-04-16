@@ -3,7 +3,7 @@ node ('master || default || background') {
     echo 'is this working?'
     echo 'Probably'
 
-    checkout scm
+    scmVars = checkout scm
 
     if (currentBuild.changeSets) {
         String changelog = '*Git Changelog:*\n'
@@ -13,5 +13,5 @@ node ('master || default || background') {
         echo changelog
     }
 
-    echo "${GIT_BRANCH}"
+    echo "${scmVars.toString()}"
 }
