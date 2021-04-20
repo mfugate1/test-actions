@@ -1,5 +1,5 @@
 node ('master || default || background') {
-    echo 'hi'
+    echo 'hello there'
     String version = '3.0.5'
     String owner = 'mfugate1'
     String repo = 'test-actions'
