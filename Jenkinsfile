@@ -1,5 +1,17 @@
 node ('master || default || background') {
     echo 'hi'
+    String version = '3.0.5'
+    String owner = 'mfugate1'
+    String repo = 'test-actions'
+    String c= '506843ca-f776-43d2-aa72-143072aa2688'
+
+    Map scmVars = checkout scm
+
+    echo(scmVars, true)
+
+    //createRelease(c, owner, repo, "v${version}", scmVars.GIT_BRANCH, "Release ${version}")
+
+    sh 'git tag'
 }
 
 void createRelease(String credentialsId, String owner, String repo, String tag, String targetCommitish, String name, String body = '') {
