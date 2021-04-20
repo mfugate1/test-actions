@@ -11,7 +11,7 @@ node ('master || default || background') {
 
     //createRelease(c, owner, repo, "v${version}", scmVars.GIT_BRANCH, "Release ${version}")
 
-    sh 'git tag'
+    echo(git.getChangelogSinceLastSuccess(), true)
 }
 
 void createRelease(String credentialsId, String owner, String repo, String tag, String targetCommitish, String name, String body = '') {
