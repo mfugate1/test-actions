@@ -8,5 +8,6 @@ node ('docker') {
         echo results.output
         echo results.exitCode
     }
+    echo 'test'
 }
 
