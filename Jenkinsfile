@@ -1,4 +1,5 @@
 node ('docker') {
+    checkout scm
     changedFiles()
 }
 
