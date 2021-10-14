@@ -1,5 +1,5 @@
-node ('master') {
-    sh 'env'
+node ('built-in') {
+    echo scm.extensions
 }
 
 
