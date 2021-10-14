@@ -1,8 +1,10 @@
 node ('built-in') {
-    echo scm.branches[0]
-    echo scm.userRemoteConfigs
-    scm.extensions += [$class: 'LocalBranch', localBranch: scm.branches[0]]
-    echo scm.extensions
+    Map scmVars = checkout([
+        $class: 'GitSCM',
+        branches: scm.branches,
+        extensions: scm.extensions + [[$class: 'LocalBranch']],
+        userRemoteConfigs: scm.userRemoteConfigs
+    ])
 }
 
 
