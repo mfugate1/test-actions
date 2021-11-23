@@ -1,7 +1,7 @@
 node ('built-in') {
     cleanWs()
     checkout scm
-    echo(currentBuild.previousSuccessfulBuild.buildVariables, true)
+    echo(currentBuild.previousSuccessfulBuild.displayName, true)
     cleanWs()
 }
 
