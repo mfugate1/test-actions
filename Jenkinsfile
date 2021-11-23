@@ -1,11 +1,23 @@
 node ('built-in') {
-    Map scmVars = checkout([
-        $class: 'GitSCM',
-        branches: scm.branches,
-        extensions: scm.extensions + [[$class: 'LocalBranch']],
-        userRemoteConfigs: scm.userRemoteConfigs
-    ])
+    cleanWs()
+    checkout scm
+    echo getLastSuccessfulCommit()
+
+    cleanWs()
 }
 
+@NonCPS
+String getLastSuccessfulCommit() {
+    def build = currentBuild.previousBuild
+    String commit = ''
+    while (build != null) {
+        commit = build.buildVariables.GIT_COMMIT
+        if (build.result == 'SUCCESS') {
+            break
+        }
+        build = build.previousBuild
+    }
+    return commit
+}
 
 
