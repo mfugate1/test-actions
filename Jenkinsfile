@@ -1,7 +1,7 @@
 node ('built-in') {
     cleanWs()
     checkout scm
-    echo(currentBuild.previousSuccessfulBuild.displayName, true)
+    echo currentBuild.previousSuccessfulBuild.changeSets[0].last().commitId
     cleanWs()
 }
 
