@@ -2,7 +2,7 @@ node ('built-in') {
     cleanWs()
     checkout scm
     echo getLastSuccessfulCommit()
-
+    echo(env, true)
     cleanWs()
 }
 
