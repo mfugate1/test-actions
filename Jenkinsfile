@@ -1,6 +1,6 @@
 node ('built-in') {
-    cleanWs()
-    echo scm.userRemoteConfigs.url[0]
+    Map scmVars = checkout scm
+    echo scmVars.toString()
     cleanWs()
 }
 
