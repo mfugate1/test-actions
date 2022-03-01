@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - run: echo "${{ github }}"
+      - run: echo "${{ github.ref }}"
