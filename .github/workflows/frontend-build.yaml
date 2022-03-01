@@ -15,4 +15,9 @@ jobs:
               owner: "${{ github.repository_owner }}",
               repo: "UpGrade"
             });
-            console.log(latestRelease)
+            const latestReleaseTag = await github.rest.git.getTag({
+              owner: "${{ github.repository_owner }}",
+              repo: "UpGrade",
+              tag_sha: latestRelease.data.tag_name
+            });
+            console.log(latestReleaseTag)
