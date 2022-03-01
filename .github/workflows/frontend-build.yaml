@@ -1,12 +1,16 @@
-name: Test
+name: Test Semver
 on: workflow_dispatch
 jobs:
   create-release:
-    name: Test
+    name: Test Semver
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: npm install semver
       - name: Get Version
         id: get-version
         run: |
