@@ -12,11 +12,11 @@ jobs:
         with:
           script: |
             const latestRelease = await github.rest.repos.getLatestRelease({
-              owner: "${{ github.repository_owner }}",
+              owner: "CarnegieLearningWeb",
               repo: "UpGrade"
             });
             const latestReleaseTag = await github.rest.git.getTag({
-              owner: "${{ github.repository_owner }}",
+              owner: "CarnegieLearningWeb",
               repo: "UpGrade",
               tag_sha: latestRelease.data.tag_name
             });
