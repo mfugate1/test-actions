@@ -30,4 +30,4 @@ jobs:
             console.log(result);
             return result;
       - run: echo "I ran"
-        if: steps.check-if-already-released.outputs.result
+        if: steps.check-if-already-released.outputs.result == 'false'
