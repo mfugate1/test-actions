@@ -15,6 +15,7 @@ jobs:
               github.rest.repos.listTags, 
               {owner: "${{ github.repository_owner }}", repo: "UpGrade"}
             );
+            console.log(tags)
             const latestRelease = await github.rest.repos.getLatestRelease({
               owner: "CarnegieLearningWeb",
               repo: "UpGrade"
