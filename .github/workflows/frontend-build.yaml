@@ -23,7 +23,7 @@ jobs:
             const branch = await github.rest.repos.getBranch({
               owner: "mfugate1",
               repo: "test-actions",
-              branch: "main"
+              branch: "master"
             });
             console.log(branch);
             const result = tags.find(element => element.name === latestRelease.data.tag_name).commit.sha === branch.data.commit.sha;
