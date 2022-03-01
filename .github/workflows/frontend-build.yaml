@@ -22,12 +22,11 @@ jobs:
           result-encoding: string
           script: |
             var semver = require('semver');
-            const allTags = await github.rest.repos.listTags({
-              owner: "${{ github.repository_owner }}",
-              repo: "UpGrade"
-            });
-            console.log("${{ steps.get-version.outputs.version }}.")
-            const tagNames = allTags.data.map(tag => tag.name)
+            const tagNames = await github.paginate(
+              github.rest.repos.listTags, 
+              {owner: "${{ github.repository_owner }}", repo: "UpGrade"},
+              (response) => response.data.map((tag) => tag.name)
+            );
             console.log(tagNames)
             const tags = tagNames.filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
             console.log(tags)
