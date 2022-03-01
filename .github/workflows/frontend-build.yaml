@@ -10,5 +10,5 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const branch = "${{ github.ref }}".replace("^refs/heads/", "")
+            const branch = "${{ github.ref }}".replace("refs/heads/", "")
             console.log(branch)
