@@ -11,13 +11,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const tags = await github.paginate(
+              github.rest.repos.listTags, 
+              {owner: "${{ github.repository_owner }}", repo: "UpGrade"}
+            );
             const latestRelease = await github.rest.repos.getLatestRelease({
               owner: "CarnegieLearningWeb",
               repo: "UpGrade"
             });
-            const latestReleaseTag = await github.rest.git.getTag({
-              owner: "CarnegieLearningWeb",
-              repo: "UpGrade",
-              tag_sha: latestRelease.data.tag_name
-            });
-            console.log(latestReleaseTag)
+            const tag = tags.find(element => element === latestRelease.data.tag_name)
+            console.log(tag)
+            return tag
