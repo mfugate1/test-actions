@@ -5,9 +5,26 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: robinraju/release-downloader@v1.3
-        continue-on-error: true
+      - name: Git Checkout
+        uses: actions/checkout@v2
+      - name: Get Version
+        id: get-version
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "::set-output name=version::$VERSION"
+      - id: get-next-version
+        uses: actions/github-script@v6
         with:
-          repository: CarnegieLearningWeb/UpGrade
-          tag: "1.0.85"
-          fileName: "*"
+          result-encoding: string
+          script: |
+            var semver = require('semver');
+            const allTags = await github.rest.repos.listTags({
+              owner: "${{ github.repository_owner }}",
+              repo: "UpGrade"
+            });
+            const tags = allTags.filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
+            const result = semver.inc(tags.sort(semver.rcompare)[0], patch);
+            console.log(result)
+            return result
+      - run: |
+          echo ${{ steps.get-next-version.outputs.result }}
