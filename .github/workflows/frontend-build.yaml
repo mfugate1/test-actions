@@ -7,31 +7,12 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - run: npm install semver
-      - name: Get Version
-        id: get-version
-        run: |
-          VERSION=$(jq -r '.version' package.json)
-          echo "::set-output name=version::$VERSION"
-      - id: get-next-version
+      - id: check-if-already-released
         uses: actions/github-script@v6
         with:
-          result-encoding: string
           script: |
-            var semver = require('semver');
-            const tagNames = await github.paginate(
-              github.rest.repos.listTags, 
-              {owner: "${{ github.repository_owner }}", repo: "test-actions"},
-              (response) => response.data.map((tag) => tag.name)
-            );
-            console.log(tagNames)
-            const tags = tagNames.filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
-            console.log(tags)
-            const result = semver.inc(tags.sort(semver.rcompare)[0], 'patch');
-            console.log(result);
-            return result;
-      - run: |
-          echo ${{ steps.get-next-version.outputs.result }}
+            const latestRelease = await github.rest.repos.getLatestRelease({
+              owner: "${{ github.repository_owner }}",
+              repo: "UpGrade"
+            });
+            console.log(latestRelease)
