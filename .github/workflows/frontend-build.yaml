@@ -7,27 +7,4 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - id: check-if-already-released
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const tags = await github.paginate(
-              github.rest.repos.listTags, 
-              {owner: "mfugate1", repo: "test-actions"}
-            );
-            console.log(tags)
-            const latestRelease = await github.rest.repos.getLatestRelease({
-              owner: "mfugate1",
-              repo: "test-actions"
-            });
-            const branch = await github.rest.repos.getBranch({
-              owner: "mfugate1",
-              repo: "test-actions",
-              branch: "master"
-            });
-            console.log(branch);
-            const result = tags.find(element => element.name === latestRelease.data.tag_name).commit.sha === branch.data.commit.sha;
-            console.log(result);
-            return result;
-      - run: echo "I ran"
-        if: steps.check-if-already-released.outputs.result == 'false'
+      - run: echo "${{ github }}"
