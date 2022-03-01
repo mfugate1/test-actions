@@ -13,13 +13,16 @@ jobs:
           script: |
             const tags = await github.paginate(
               github.rest.repos.listTags, 
-              {owner: "${{ github.repository_owner }}", repo: "UpGrade"}
+              {owner: "CarnegieLearningWeb", repo: "UpGrade"}
             );
             console.log(tags)
             const latestRelease = await github.rest.repos.getLatestRelease({
               owner: "CarnegieLearningWeb",
               repo: "UpGrade"
             });
-            const tag = tags.find(element => element.name === latestRelease.data.tag_name)
+            const tag = await github.rest.git.getTag({
+              owner: "CarnegieLearningWeb",
+              repo: "UpGrade",
+              tag_sha: tags.find(element => element.name === latestRelease.data.tag_name).commit.sha
+            });
             console.log(tag)
-            return tag
