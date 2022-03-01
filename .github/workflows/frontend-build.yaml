@@ -20,9 +20,14 @@ jobs:
               owner: "CarnegieLearningWeb",
               repo: "UpGrade"
             });
-            const tag = await github.rest.git.getTag({
+            const branch = await github.rest.repos.getBranch({
               owner: "CarnegieLearningWeb",
               repo: "UpGrade",
-              tag_sha: tags.find(element => element.name === latestRelease.data.tag_name).commit.sha
+              branch: "main"
             });
-            console.log(tag)
+            console.log(branch);
+            const result = tags.find(element => element.name === latestRelease.data.tag_name).commit.sha === branch.data.commit.sha;
+            console.log(result);
+            return result;
+      - run: echo "I ran"
+        if: steps.check-if-already-released.outputs.result
