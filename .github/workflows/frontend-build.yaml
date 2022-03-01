@@ -27,7 +27,7 @@ jobs:
               repo: "UpGrade"
             });
             const tags = allTags.data.map(tag => tag.name).filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
-            const result = semver.inc(tags.sort(semver.rcompare)[0], patch);
+            const result = semver.inc(tags.sort(semver.rcompare)[0], 'patch');
             console.log(result);
             return result;
       - run: |
