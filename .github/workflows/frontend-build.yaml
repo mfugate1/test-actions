@@ -24,7 +24,7 @@ jobs:
             var semver = require('semver');
             const tagNames = await github.paginate(
               github.rest.repos.listTags, 
-              {owner: "${{ github.repository_owner }}", repo: "UpGrade"},
+              {owner: "${{ github.repository_owner }}", repo: "test-actions"},
               (response) => response.data.map((tag) => tag.name)
             );
             console.log(tagNames)
