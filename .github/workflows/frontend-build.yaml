@@ -5,10 +5,12 @@ jobs:
     name: Test Semver
     runs-on: ubuntu-latest
     steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
       - uses: actions/github-script@v6
         with:
           script: |
-            const branch = "${{ github.ref }}".replace("refs/heads/", "")
+            const branch = await github.rest.repos.getBranch({
+              owner: "${{ github.repository_owner }}",
+              repo: "test-actions",
+              branch: "${{ github.ref }}"
+            });
             console.log(branch)
