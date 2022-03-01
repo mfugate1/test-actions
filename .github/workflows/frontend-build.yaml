@@ -26,7 +26,10 @@ jobs:
               owner: "${{ github.repository_owner }}",
               repo: "UpGrade"
             });
-            const tags = allTags.data.map(tag => tag.name).filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
+            console.log("${{ steps.get-version.outputs.version }}.")
+            const tagNames = allTags.data.map(tag => tag.name)
+            console.log(tagNames)
+            const tags = tagNames.filter(tag => tag.startsWith("${{ steps.get-version.outputs.version }}."));
             console.log(tags)
             const result = semver.inc(tags.sort(semver.rcompare)[0], 'patch');
             console.log(result);
