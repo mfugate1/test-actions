@@ -13,16 +13,16 @@ jobs:
           script: |
             const tags = await github.paginate(
               github.rest.repos.listTags, 
-              {owner: "CarnegieLearningWeb", repo: "UpGrade"}
+              {owner: "mfugate1", repo: "test-actions"}
             );
             console.log(tags)
             const latestRelease = await github.rest.repos.getLatestRelease({
-              owner: "CarnegieLearningWeb",
-              repo: "UpGrade"
+              owner: "mfugate1",
+              repo: "test-actions"
             });
             const branch = await github.rest.repos.getBranch({
-              owner: "CarnegieLearningWeb",
-              repo: "UpGrade",
+              owner: "mfugate1",
+              repo: "test-actions",
               branch: "main"
             });
             console.log(branch);
