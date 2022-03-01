@@ -7,4 +7,8 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - run: echo "${{ github.ref }}"
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const branch = "${{ github.ref }}".split("/").pop()
+            console.log(branch)
