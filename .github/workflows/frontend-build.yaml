@@ -20,6 +20,6 @@ jobs:
               owner: "CarnegieLearningWeb",
               repo: "UpGrade"
             });
-            const tag = tags.find(element => element === latestRelease.data.tag_name)
+            const tag = tags.find(element => element.name === latestRelease.data.tag_name)
             console.log(tag)
             return tag
