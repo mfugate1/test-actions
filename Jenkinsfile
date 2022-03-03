@@ -1,4 +1,4 @@
-echo(scm, true)
+echo scm
 
 
 
