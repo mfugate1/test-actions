@@ -1,4 +1,4 @@
-echo scm
+echo scm.GIT_URL
 
 
 
