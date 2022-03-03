@@ -1,4 +1,5 @@
-echo scm.GIT_URL
+Map x = getScm()
+echo(x, true)
 
 
 
