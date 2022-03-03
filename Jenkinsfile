@@ -1,5 +1,4 @@
-Map x = getScm()
-echo(x, true)
+echo scm.getUserRemoteConfigs()[0].getUrl()
 
 
 
