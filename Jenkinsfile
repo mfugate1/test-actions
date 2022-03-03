@@ -1,6 +1,4 @@
-node ('built-in') {
-    sh 'env'
-}
+echo(scm, true)
 
 
 
