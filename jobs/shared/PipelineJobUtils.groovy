@@ -27,7 +27,7 @@ class PipelineJobUtils {
             }
             properties {
                 pipelineTriggers {
-                    trigger {
+                    triggers {
                         GenericTrigger {
                             causeString("Webhook")
                             token(config.token ?: "")
