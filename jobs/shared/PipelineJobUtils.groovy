@@ -29,7 +29,7 @@ class PipelineJobUtils {
         String defaultCpu = config.cpu ?: "1024"
         String ecsCpuScript = """\
             return [256, 512, 1024, 2048, 4096].collect {
-                it == ${defaultCpu} ? it.toString() + ':selected' : it}
+                it == ${defaultCpu} ? it.toString() + ':selected' : it
             }""".stripIndent()
 
         String defaultMemory = config.memory ?: "null"
