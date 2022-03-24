@@ -4,7 +4,7 @@
 class PipelineJobUtils {
     static void addGithubWebhookTrigger(Map config) {
         String branchName = config.branch ?: ""
-        if (branchName && !branchName.startsWith("refs/heads/") {
+        if (branchName && !branchName.startsWith("refs/heads/")) {
             branchName = "refs/heads/${branchName}"
         }
 
@@ -61,7 +61,7 @@ class PipelineJobUtils {
             }
         }
     }
-    
+
     static void addGitScmDefinition (Map config) {
         String repoUrl = config.repoUrl ?: "https://github.com/mfugate1/test-actions"
 
