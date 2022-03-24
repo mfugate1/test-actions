@@ -13,8 +13,8 @@ job.with {
             filterable()
             choiceType("SINGLE_SELECT")
             groovyScript {
-                script("['choice1', 'choice2']")
-                fallbackScript("'fallback choice'")
+                script("['256', '512', '1024:selected', '2048', '4096']")
+                fallbackScript("'Error getting cpu values'")
             }
         }
     }
