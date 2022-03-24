@@ -1,5 +1,7 @@
-import static JobUtils.addDefaultPipelineDefinition
+import static PipelineJobUtils.addGitScmDefinition
 
 job = pipelineJob ("TEST-JOB-666")
 
-addDefaultPipelineDefinition(job, "https://github.dev.carnegielearning.com/CarnegieLearning/curate")
+addGitScmDefinition (
+    job: job
+)
