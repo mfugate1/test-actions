@@ -11,7 +11,7 @@ job.with {
         activeChoiceParam ("ecsCpu") {
             choiceType("SINGLE_SELECT")
             groovyScript {
-                script("return ['256', '512', '1024:selected', '2048', '4096']")
+                script("['256', '512', '1024:selected', '2048', '4096']")
                 fallbackScript("'Error getting CPU values'")
             }
         }
