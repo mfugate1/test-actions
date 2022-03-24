@@ -98,7 +98,7 @@ class PipelineJobUtils {
                         groovyScript {
                             script {
                                 sandbox(true)
-                                script("['256', '512', '1024:selected', '2048', '4096']")
+                                script(ecsCpuScript)
                             }
                             fallbackScript {
                                 script("'Error getting cpu values'")
