@@ -1,4 +1,5 @@
-import javaposse.jobdsl.dsl.Job
+
+
 
 class PipelineJobUtils {
     static void addGitScmDefinition (Map config) {
@@ -22,11 +23,32 @@ class PipelineJobUtils {
         }
     }
 
+    
+
     static void addEcsParameters(Map config) {
+        String defaultCpu = config.cpu ?: "1024"
         String ecsMemoryScript = """\
             List possibleValues = [512] + (1..30).collect{it * 1024}
             int cpu = ecsCpu as Integer
-            return possibleValues.findAll{it >= 2 * cpu && it <= 8 * cpu}""".stripIndent()
+            return possibleValues.findAll{it >= 2 * cpu && it <= 8 * cpu}
+                                 .collect {it == ${defaultCpu} ? it.toString() + ':selected' : it}""".stripIndent()
+
+        String ecsImageScript = '''\
+            import com.amazonaws.services.ecrpublic.AmazonECRPublicClient
+            import com.amazonaws.services.ecrpublic.AmazonECRPublicClientBuilder
+            import com.amazonaws.services.ecrpublic.model.DescribeImagesRequest
+            import com.amazonaws.services.ecrpublic.model.DescribeRegistriesRequest
+            AmazonECRPublicClient client = AmazonECRPublicClientBuilder.standard()
+                                                                       .withRegion("us-east-1")
+                                                                       .build()
+            String repo = "jenkins-agent"
+            String registryUri = client.describeRegistries(new DescribeRegistriesRequest())
+                                       .getRegistries()[0]
+                                       .getRegistryUri()
+            List tags = client.describeImages(new DescribeImagesRequest().withRepositoryName(repo))
+                               .getImageDetails().collect{it.getImageTags()}.flatten()
+
+            return ["jenkins/inbound-agent:alpine"] + tags.collect{"${registryUri}/${repo}:${it}"}'''.stripIndent()
 
         config.job.with {
             parameters {
@@ -35,11 +57,31 @@ class PipelineJobUtils {
                     defaultValue(config.image ?: "jenkins/inbound-agent:alpine")
                 }
                 choiceParameter {
+                    name("ecsImage")
+                    description("Docker image to use for ECS task.")
+                    choiceType("PT_SINGLE_SELECT")
+                    randomName("")
+                    filterable(true)
+                    filterLength(1)
+                    script {
+                        groovyScript {
+                            script {
+                                sandbox(true)
+                                script(ecsImageScript)
+                            }
+                            fallbackScript {
+                                script("'Error getting list of images'")
+                                sandbox(true)
+                            }
+                        }
+                    }
+                }
+                choiceParameter {
                     name("ecsCpu")
                     description("""\
                         Memory (in MB) to allocate to the ECS task. List is dynamically 
                         populated to only include valid values based on the CPU units 
-                        chosen above."""
+                        chosen above.""".stripIndent().replaceAll("[\\n]", "")
                     )
                     choiceType("PT_SINGLE_SELECT")
                     randomName("")
