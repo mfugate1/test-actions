@@ -8,8 +8,7 @@ addGitScmDefinition (
 
 job.with {
     parameters {
-        activeChoiceParam {
-            name("ecsCpu")
+        activeChoiceParam ("ecsCpu") {
             choiceType("SINGLE_SELECT")
             groovyScript {
                 script {
