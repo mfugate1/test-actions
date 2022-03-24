@@ -12,7 +12,7 @@ class PipelineJobUtils {
                     scm {
                         git {
                             remote {
-                                url(config.repoUrl)
+                                url(repoUrl)
                             }
                             branch(config.branch ?: "main")
                         }
