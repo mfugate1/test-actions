@@ -6,7 +6,7 @@ class PipelineJobUtils {
     static void addGitScmDefinition (Map config) {
         String repoUrl = config.repoUrl ?: "https://github.com/mfugate1/test-actions"
 
-        job.with {
+        config.job.with {
             definition {
                 cpsScm {
                     scm {
