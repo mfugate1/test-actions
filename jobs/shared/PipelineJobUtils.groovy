@@ -55,7 +55,7 @@ class PipelineJobUtils {
             List tags = client.describeImages(new DescribeImagesRequest().withRepositoryName(repo))
                                .getImageDetails().collect{it.getImageTags()}.flatten()
 
-            return ["jenkins/inbound-agent:alpine"] + tags.collect{"${registryUri}/${repo}:${it}"}'''.stripIndent()
+            return ["jenkins/inbound-agent:alpine"] + tags.sort().collect{"${registryUri}/${repo}:${it}"}'''.stripIndent()
 
         config.job.with {
             parameters {
