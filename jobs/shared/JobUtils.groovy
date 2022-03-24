@@ -1,5 +1,3 @@
-package com.cl.dev
-
 import javaposse.jobdsl.dsl.Job
 
 class JobUtils {
