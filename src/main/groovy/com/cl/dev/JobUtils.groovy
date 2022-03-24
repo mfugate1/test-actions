@@ -1,25 +1,22 @@
 package com.cl.dev
 
+import javaposse.jobdsl.dsl.Job
+
 class JobUtils {
-    static void createPipelineJob(String jobName) {
-        pipelineJob (jobName) {
+    static void addDefaultPipelineDefinition(Job job, String repoUrl, String _branch = "main", String _scriptPath = "Jenkinsfile") {
+        job.with {
             definition {
                 cpsScm {
                     scm {
                         git {
                             remote {
-                                url("https://github.com/mfugate1/test-actions")
+                                url(repoUrl)
                             }
-                            branch("master")
+                            branch(_branch)
                         }
                         lightweight()
-                        scriptPath("Jenkinsfile")
+                        scriptPath(_scriptPath)
                     }
-                }
-            }
-            properties {
-                disableConcurrentBuilds {
-                    abortPrevious(false)
                 }
             }
         }

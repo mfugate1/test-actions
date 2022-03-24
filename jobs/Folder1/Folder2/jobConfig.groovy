@@ -1,3 +1,5 @@
-import static com.cl.dev.JobUtils.createPipelineJob
+import static com.cl.dev.JobUtils.addDefaultPipelineDefinition
 
-createPipelineJob("TEST_JOB")
+job = pipelineJob ("TEST-JOB")
+
+addDefaultPipelineDefinition(job, "https://github.com/mfugate1/test-actions", "master")
