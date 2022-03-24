@@ -1,5 +1,6 @@
 import static PipelineJobUtils.addGitScmDefinition
 import static PipelineJobUtils.addEcsParameters
+import static PipelineJobUtils.addGithubWebhookTrigger
 
 job = pipelineJob ("TEST-JOB-666")
 
