@@ -9,7 +9,7 @@ addGitScmDefinition (
 String ecsMemoryScript = """\
     List possibleValues = [512] + (1..30).collect{it * 1024}
     int cpu = ecsCpu as Integer
-    return possibleValues.collect{it >= 2 * cpu && it <= 8 * cpu}"""
+    return possibleValues.findAll{it >= 2 * cpu && it <= 8 * cpu}"""
 
 job.with {
     parameters {
