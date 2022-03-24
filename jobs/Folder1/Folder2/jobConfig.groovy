@@ -8,8 +8,7 @@ addGitScmDefinition (
 
 job.with {
     parameters {
-        activeChoiceParam("CHOICE-1") {
-            description("Allows user choose from multiple choices")
+        activeChoiceParam("ecsCpu") {
             filterable()
             choiceType("SINGLE_SELECT")
             groovyScript {
