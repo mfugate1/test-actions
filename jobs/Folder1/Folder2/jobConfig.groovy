@@ -1,4 +1,4 @@
-import JobUtils.addDefaultPipelineDefinition
+import com.carnegielearning.jenkins.JobUtils.addDefaultPipelineDefinition
 
 job = pipelineJob ("TEST-JOB-666")
 

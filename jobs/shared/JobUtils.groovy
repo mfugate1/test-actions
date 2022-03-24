@@ -1,3 +1,5 @@
+package com.carnegielearning.jenkins
+
 import javaposse.jobdsl.dsl.Job
 
 class JobUtils {
