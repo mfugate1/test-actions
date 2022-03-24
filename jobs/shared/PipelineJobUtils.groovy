@@ -27,11 +27,18 @@ class PipelineJobUtils {
 
     static void addEcsParameters(Map config) {
         String defaultCpu = config.cpu ?: "1024"
+        String ecsCpuScript = """\
+            return [256, 512, 1024, 2048, 4096].collect {
+                it == ${defaultCpu} ? it.toString() + ':selected' : it}
+            }""".stripIndent()
+
+        String defaultMemory = config.memory ?: "null"
         String ecsMemoryScript = """\
+            int defaultMemory = ${defaultMemory}
             List possibleValues = [512] + (1..30).collect{it * 1024}
             int cpu = ecsCpu as Integer
             return possibleValues.findAll{it >= 2 * cpu && it <= 8 * cpu}
-                                 .collect {it == ${defaultCpu} ? it.toString() + ':selected' : it}""".stripIndent()
+                                 .collect {it == defaultMemory ? it.toString() + ':selected' : it}""".stripIndent()
 
         String ecsImageScript = '''\
             import com.amazonaws.services.ecrpublic.AmazonECRPublicClient
