@@ -2,6 +2,66 @@
 
 
 class PipelineJobUtils {
+    static void addGithubWebhookTrigger(Map config) {
+        String branchName = config.branch ?: ""
+        if (branchName && !branchName.startsWith("refs/heads/") {
+            branchName = "refs/heads/${branchName}"
+        }
+
+        config.job.with {
+            parameters {
+                string {
+                    name("repository")
+                    defaultValue(config.repoUrl ?: "")
+                }
+                string {
+                    name("ref")
+                    defaultValue(branchName)
+                }
+                string {
+                    name("commit")
+                }
+                string {
+                    name("payload")
+                }
+            }
+            properties {
+                pipelineTriggers {
+                    trigger {
+                        GenericTrigger {
+                            causeString("Webhook")
+                            token(config.token ?: "")
+                            regexpFilterText(branchName ? '$ref' : "")
+                            regexpFilterExpression(branchName)
+                            genericVariables {
+                                genericVariable {
+                                    key("ref")
+                                    value('$.ref')
+                                    expressionType("JSONPath")
+                                }
+                                genericVariable {
+                                    key("repository")
+                                    value('$.repository.url')
+                                    expressionType("JSONPath")
+                                }
+                                genericVariable {
+                                    key("commit")
+                                    value('$.after')
+                                    expressionType("JSONPath")
+                                }
+                                genericVariable {
+                                    key("payload")
+                                    value('$')
+                                    expressionType("JSONPath")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     static void addGitScmDefinition (Map config) {
         String repoUrl = config.repoUrl ?: "https://github.com/mfugate1/test-actions"
 

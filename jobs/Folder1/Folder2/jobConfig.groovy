@@ -14,3 +14,5 @@ job.with {
 }
 
 addEcsParameters(job: job, cpu: "2048", memory: "8192")
+
+addGithubWebhookTrigger(job: job, token: "Test")
