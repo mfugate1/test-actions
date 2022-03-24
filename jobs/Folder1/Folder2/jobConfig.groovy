@@ -1,4 +1,4 @@
-import static PipelineJobUtils.addGitScmDefinition
+import static addGitScmDefinition
 
 job = pipelineJob ("TEST-JOB-666")
 
