@@ -32,7 +32,7 @@ job.with {
                 }
             }
         }
-        dynamicReferenceParameter {
+        cascadeChoiceParameter {
             name("ecsMemory")
             choiceType("PT_SINGLE_SELECT")
             randomName("")
