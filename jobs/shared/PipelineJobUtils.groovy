@@ -28,7 +28,7 @@ class PipelineJobUtils {
             int cpu = ecsCpu as Integer
             return possibleValues.collect{it >= 2 * cpu && it <= 8 * cpu}""".stripIndent()
 
-        job.with {
+        config.job.with {
             parameters {
                 string {
                     name("ecsImage")
