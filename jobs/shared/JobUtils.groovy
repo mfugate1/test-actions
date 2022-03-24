@@ -9,6 +9,7 @@ class JobUtils {
                         git {
                             remote {
                                 url(repoUrl)
+                                credentials(GITHUB_ENTERPRISE_CREDENTIALS_ID)
                             }
                             branch(_branch)
                         }
