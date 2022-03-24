@@ -39,7 +39,7 @@ class PipelineJobUtils {
                     description("""\
                         Memory (in MB) to allocate to the ECS task. List is dynamically 
                         populated to only include valid values based on the CPU units 
-                        chosen above.""".stripIndent().replaceAll("[\\n]", "")
+                        chosen above."""
                     )
                     choiceType("PT_SINGLE_SELECT")
                     randomName("")
