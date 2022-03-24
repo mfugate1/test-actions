@@ -18,7 +18,7 @@ job.with {
                 groovyScript {
                     script {
                         sandbox(true)
-                        script("return ['256', '512', '1024:selected', '2048', '4096")
+                        script("return ['256', '512', '1024:selected', '2048', '4096']")
                     }
                     fallbackScript {
                         script("return ['Error getting cpu values']")
