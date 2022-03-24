@@ -1,4 +1,4 @@
-import static com.cl.dev.JobUtils.addDefaultPipelineDefinition
+import JobUtils.addDefaultPipelineDefinition
 
 job = pipelineJob ("TEST-JOB")
 
