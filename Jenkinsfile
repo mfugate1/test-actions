@@ -1,15 +1,12 @@
-node {
-    echo 'Test Actions! change'
-    echo 'is this working?'
-    echo 'Probably'
-
-    checkout scm
-
-    if (currentBuild.changeSets) {
-        String changelog = '*Git Changelog:*\n'
-        currentBuild.changeSets[0].items.each {
-            changelog += "\n- `${it.commitId.take(7)}` ${it.getMsgEscaped()} (${it.getAuthorEmail()})"
-        }
-        echo changelog
-    }
+node ("built-in") {
+  sh "env"
+  
+  pullRequest.createStatus(
+    status: "success",
+    context: "My Tests",
+    description: "All Tests Passing",
+    targetUrl: JOB_URL
+    )
+  
+ pullRequest.comment("Things are looking good")
 }

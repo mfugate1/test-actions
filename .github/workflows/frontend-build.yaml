@@ -1,0 +1,16 @@
+name: Test Semver
+on: workflow_dispatch
+jobs:
+  create-release:
+    name: Test Semver
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const branch = await github.rest.repos.getBranch({
+              owner: "${{ github.repository_owner }}",
+              repo: "test-actions",
+              branch: "${{ github.ref }}"
+            });
+            console.log(branch)
